@@ -6,6 +6,7 @@ import tweepy
 import boto3
 import csv
 import pandas as pd
+from datetime import datetime
 
 ROOT = Path(__file__).resolve().parents[0]
 
@@ -42,6 +43,7 @@ def tweet_photo():
     api = tweepy.API(auth)
     
     # Loop through objects and post to Twitter if not already posted
+    status = False
     for obj in objects['Contents']:
         if obj['Key'] not in df['Photos'].to_numpy():
             # Get photo
@@ -52,17 +54,25 @@ def tweet_photo():
             post_result = api.update_status(status=tweet, media_ids=[media.media_id])
             # Add photo to list of posted photos
             df_local = pd.DataFrame([obj['Key']], columns =['Photos'])
-            df = pd.concat([df, df_local], ignore_index = True)   
+            df = pd.concat([df, df_local], ignore_index = True)
+            status = True
             break
+    
+    if status == True:
+        # Save updated list of posted photos to temp CSV file
+        df.to_csv(tweets_file,index=False)
 
-    # Save updated list of posted photos to temp CSV file
-    df.to_csv(tweets_file,index=False)
-    
-    # Upload updated CSV to S3 bucket
-    bucket.upload_file(tweets_file, key)
-    
-    # Doubt this is necessary but ah well
-    os.remove(tweet_photo)
+        # Upload updated CSV to S3 bucket
+        bucket.upload_file(tweets_file, key)
+
+        # Doubt this is necessary but ah well
+        os.remove(tweet_photo)
+    else:
+        now = datetime.now()
+        dict = {'Photos':['tried to post on ' + str(now)]}
+        df_local = pd.DataFrame(dict)
+        df = pd.concat([df, df_local], ignore_index = True)
+        df.to_csv(tweets_file,index=False)
     
 def lambda_handler(event, context):
     print("Tweet photo")

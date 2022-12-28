@@ -1,0 +1,4 @@
+tweepy==4.12.1
+python-dotenv==0.14.0
+boto3==1.24.28
+pandas==1.4.4

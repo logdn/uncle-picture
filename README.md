@@ -9,6 +9,6 @@ My version also uses AWS S3 in order to post photos.
 
 ## Attributions
 
-The general approach comes from [Dylan Castillo] (https://github.com/dylanjcastillo/twitter-bot-python-aws-lambda).
+The general approach comes from [Dylan Castillo](https://github.com/dylanjcastillo/twitter-bot-python-aws-lambda).
 
 The `createlambdalayer.sh` script comes from [this repository](https://github.com/aws-samples/aws-lambda-layer-create-script).

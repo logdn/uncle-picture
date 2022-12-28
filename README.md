@@ -1,6 +1,4 @@
-# All this comes from this guy's blog. But I re-did the bot significantly so it posts pictures including the S3 stuff.
-
-# https://github.com/dylanjcastillo/twitter-bot-python-aws-lambda
+See: https://github.com/dylanjcastillo/twitter-bot-python-aws-lambda
 
 
 # Twitter Bot Using Python and AWS Lambda

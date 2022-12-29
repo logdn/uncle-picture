@@ -66,6 +66,7 @@ def tweet_photo():
         # Doubt this is necessary but ah well
         os.remove(tweet_photo)
     else:
+        # Keep record of failed attempt
         now = datetime.now()
         dict = {'Photos':['tried to post on ' + str(now)]}
         df_local = pd.DataFrame(dict)

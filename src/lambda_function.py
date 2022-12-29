@@ -71,6 +71,7 @@ def tweet_photo():
         df_local = pd.DataFrame(dict)
         df = pd.concat([df, df_local], ignore_index = True)
         df.to_csv(tweets_file,index=False)
+        bucket.upload_file(tweets_file, key)
     
 def lambda_handler(event, context):
     print("Tweet photo")

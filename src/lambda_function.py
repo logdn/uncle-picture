@@ -61,10 +61,8 @@ def tweet_photo():
     if status == True:
         # Save updated list of posted photos to temp CSV file
         df.to_csv(tweets_file,index=False)
-
         # Upload updated CSV to S3 bucket
         bucket.upload_file(tweets_file, key)
-
         # Doubt this is necessary but ah well
         os.remove(tweet_photo)
     else:
